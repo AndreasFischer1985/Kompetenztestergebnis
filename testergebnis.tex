@@ -1,0 +1,90 @@
+\documentclass[12pt]{article}
+\usepackage{ucs}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{multicol}
+\usepackage[absolute]{textpos}
+\RequirePackage{tikz}
+\usepackage{fontawesome}
+\setlength{\parindent}{0pt} % Disable paragraph indentation
+\definecolor{customcolor}{rgb}{0,0.3294118,0.4784314}
+\newcommand{\e}{\textcolor{gray}{\faCircleO}}
+\newcommand{\f}{\textcolor{customcolor}{\faCircle}}
+\newcommand{\0}{\e\e\e\e\e}
+\newcommand{\1}{\f\e\e\e\e}
+\newcommand{\2}{\f\f\e\e\e}
+\newcommand{\3}{\f\f\f\e\e}
+\newcommand{\4}{\f\f\f\f\e}
+\newcommand{\5}{\f\f\f\f\f}
+\newcommand{\nextcolumn}{\vfill\columnbreak}
+\newcommand{\myMargin}{5cm}
+\usepackage[left=\myMargin, right=1cm, top=0.5cm, bottom=0.5cm]{geometry}
+\newcommand{\logo}{\includegraphics[scale=0.25]{logo.png}}
+\newcommand{\score}[3]{
+	\hrule
+	\vspace{0.4cm}
+	\large\textbf{#1}\newline
+	\small	
+	%\vspace{0.5cm}
+	%\begin{multicols}{2}	
+	\begin{minipage}[c]{0.7\linewidth}
+	#2
+	\end{minipage}
+	%\nextcolumn
+	\begin{minipage}[c]{0.27\linewidth}
+	\rightline{\large{#3}}
+	\end{minipage}
+	\vspace{0.4cm}
+	%\end{multicols}
+	%\vspace{0.1cm}
+	\hrule
+}
+\newcommand{\information}[4]{
+	\hrule 
+	\vspace{0.5cm}	
+	\textbf{Name:} \small{#1}\begin{multicols}{3}
+	\textbf{Geburtsdatum:} \small{#2}
+	\nextcolumn
+	\textbf{Testdatum:} \small{#3}
+	\nextcolumn
+	\textbf{Testsprache:} \small{#4}
+	\end{multicols}	
+	\vspace{0.1cm}\hrule
+}
+\newcommand{\globalframe}{
+	\begin{textblock}{2}(0.5, 0.5)
+	\begin{tikzpicture}[remember picture,overlay]
+ 		\node [rectangle,fill=customcolor,minimum width=130,minimum height=\paperheight*2](box) at (1.5,0){};
+	\end{tikzpicture}
+	Entwurfsfassung
+	\end{textblock}
+}
+\begin{document}
+	\huge\textbf{Testergebnis} \hspace{5.5cm}\logo
+	\newline\large zur Kompetenz im Bereich xy
+	\normalsize
+	\vspace{0.5cm}	
+	\globalframe
+	\information{Dr. Andreas Fischer}{21.08.1985}{02.02.2019}{deutsch}
+	\vspace{0.5cm}
+	\small Der durchgeführte Test umfasst 6 ausweisbare Teilergebnisse. Jedes Teilergebnis basiert auf mehreren Antworten zu unterschiedlichen Inhalten des jeweiligen Gegenstandsbereichs.
+	\vspace{0.5cm}
+  	%\begin{multicols}{2} %	\nextcolumn
+  	\score{Teilergebnis 1}{Beschreibung der Testinhalte in beliebiger Ausführlichkeit. Maximal drei Zeilen sind zu empfehlen, da andernfalls die Ergebnisse nicht mehr auf eine Seite zu passen drohen.}{\1}
+  	\score{Teilergebnis 2}{Beschreibung der Testinhalte in beliebiger Ausführlichkeit. Maximal drei Zeilen sind zu empfehlen, da andernfalls die Ergebnisse nicht mehr auf eine Seite zu passen drohen.}{\2}
+	\score{Teilergebnis 3}{Beschreibung der Testinhalte in beliebiger Ausführlichkeit. Maximal drei Zeilen sind zu empfehlen, da andernfalls die Ergebnisse nicht mehr auf eine Seite zu passen drohen.}{\3}
+	\score{Teilergebnis 4}{Beschreibung der Testinhalte in beliebiger Ausführlichkeit. Maximal drei Zeilen sind zu empfehlen, da andernfalls die Ergebnisse nicht mehr auf eine Seite zu passen drohen.}{\4}
+	\score{Teilergebnis 5}{Beschreibung der Testinhalte in beliebiger Ausführlichkeit. Maximal drei Zeilen sind zu empfehlen, da andernfalls die Ergebnisse nicht mehr auf eine Seite zu passen drohen.}{\5}
+	\score{Teilergebnis 6}{Beschreibung der Testinhalte in beliebiger Ausführlichkeit. Maximal drei Zeilen sind zu empfehlen, da andernfalls die Ergebnisse nicht mehr auf eine Seite zu passen drohen.}{\0}
+	\vspace{0.6cm}
+	\scriptsize
+	\textbf{Legende:}\newline
+	\0 = keine Aussage möglich\newline
+	\1 = geringe Kompetenz\newline
+	\2 = grundlegende Kompetenz\newline
+	\3 = mittlere Kompetenz\newline
+	\4 = hohe Kompetenz\newline
+	\5 = außergewöhnlich hohe Kompetenz\newline
+	\normalsize
+\end{document}
