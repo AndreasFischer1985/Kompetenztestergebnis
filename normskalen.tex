@@ -1,0 +1,153 @@
+\documentclass{article}
+\usepackage{pgfplots}
+\usepackage{fontawesome}
+\usepackage[ngerman]{babel}
+\usetikzlibrary{calc}
+\usepackage[left=2cm, right=2cm, top=4cm, bottom=4cm]{geometry}
+
+\begin{document}
+
+    
+\newcommand{\namedTick}[4]{
+  	\node[fill=white] at (axis cs:  #1,#2){#3};
+	\draw (axis cs:#1,#4) -- (axis cs: #1,{#4-0.01});
+}
+\newcommand{\myTick}[2]{
+	\draw (axis cs:#1,#2) -- (axis cs: #1,{#2-0.01});
+}
+\newcommand{\myNode}[3]{
+  	\node[fill=white] at (axis cs:  #1,#2){#3};
+}
+\pgfmathdeclarefunction{gauss}{2}{%
+	\pgfmathparse{1/(#2*sqrt(2*pi))*exp(-((x-#1)^2)/(2*#2^2))}%
+}
+\newcommand{\zAt}[3]{\pgfmathparse{1/(#2*sqrt(2*pi))*exp(-((#3-#1)^2)/(2*#2^2))}\pgfmathresult}
+\newcommand{\e}{\textcolor{gray}{\faCircleO}}
+\newcommand{\f}{\textcolor{customcolor}{\faCircle}}
+
+\begin{figure}[htbp]		
+\begin{tikzpicture}
+\begin{axis}[
+  no markers, domain=-5:5, samples=100, height=4cm, width=14cm,   
+  xlabel=$z$,  
+  scale only axis,
+  axis lines=middle,
+  %ymin=0,ymax=0.8,
+  axis line style = thick,
+  x label style={anchor=west},
+  y label style={anchor=south},
+  axis on top,
+  clip=false,
+  axis lines*=left,  
+  grid = minor%\empty%major
+  ]
+  \tiny
+  \def\yPr{-0.08}  
+  \def\yIQ{-0.16}
+  \def\yT{-0.24}
+  \def\yZ{-0.32}
+  \def\yCo{-0.40}
+  \def\yShift{0.03}  
+  \definecolor{customcolor}{rgb}{0,0.3294118,0.4784314}
+
+  %normal distribution
+  \addplot [fill=customcolor!20, draw=none, domain=0:1.96] {gauss(0,1)} \closedcycle;
+  \addplot [very thick,customcolor!50!black] {gauss(0,1)};
+
+   \node [above] at (axis cs:  3,0.25)
+     {\footnotesize{$\displaystyle f(z)=\frac{1}{\sigma\sqrt{2\pi}}\exp\biggl(\frac{-z^2}{2\sigma^2}\biggr)$}};
+     
+  %dashed lines 
+  \draw[dashed] (axis cs:-3,0) -- (axis cs:-3,0.05399););
+  \draw[dashed] (axis cs:-2,0) -- (axis cs:-2,0.05399););
+  \draw[dashed] (axis cs:-1,0) -- (axis cs:-1,0.24202););
+  \draw[dashed] (axis cs:0,0) -- (axis cs:0,0.39896););
+  %\draw[dashed] (axis cs:1,0) -- (axis cs:1,0.24202););
+  \draw[dashed] (axis cs:2,0) -- (axis cs:2,0.05399););
+  \draw[dashed] (axis cs:3,0) -- (axis cs:3,0.00443););
+
+  %percentage notions
+  \node at (axis cs: -3.5,0.05399){0,1\%};
+  \node at (axis cs: -2.5,0.05399){2,1\%};
+  \node at (axis cs: -1.5,0.05399){13,6\%};
+  \node at (axis cs: -0.5,0.05399){34,1\%};
+
+  %1.96 sigma notion
+  \draw [yshift=0.5cm, latex-latex](axis cs:0,0) -- node [fill=white] {$1.96\sigma$} (axis cs:1.96,0);
+
+  \draw [->](axis cs:-4,\yPr) -- (axis cs:5,\yPr);
+  \node[fill=white] at (axis cs:  -5,\yPr-\yShift){\normalsize{Prozentrang}};
+  \draw [->](axis cs:-4,\yIQ) -- (axis cs:5,\yIQ);
+  \node[fill=white] at (axis cs: -5,\yIQ-\yShift){\normalsize{IQ-Skala}};
+  \draw [->](axis cs:-4,\yT) -- (axis cs:5,\yT);
+  \node[fill=white] at (axis cs: -5,\yT-\yShift){\normalsize{T-Skala}};
+  \draw [->](axis cs:-4,\yZ) -- (axis cs:5,\yZ);
+  \node[fill=white] at (axis cs: -5,\yZ-\yShift){\normalsize{Z-Skala}};
+  \draw [->](axis cs:-4,\yCo) -- (axis cs:5,\yCo);
+  \node[fill=white] at (axis cs: -5,\yCo-\yShift){\normalsize{Kompetenz-Skala}};
+  
+  %Prozentrang-Skala
+  \namedTick{-3}{\yPr-\yShift}{0,135}{\yPr}
+  \namedTick{-2.326348}{\yPr-\yShift}{1}{\yPr}
+  \namedTick{-1.96}{\yPr-\yShift}{2,5}{\yPr}
+  \namedTick{-1.281552}{\yPr-\yShift}{10}{\yPr}
+  \namedTick{-0.8416212}{\yPr-\yShift}{20}{\yPr}
+  \namedTick{-0.5244005}{\yPr-\yShift}{30}{\yPr}
+  \namedTick{-0.2533471}{\yPr-\yShift}{40}{\yPr}
+  \namedTick{0}{\yPr-\yShift}{50}{\yPr}
+  \namedTick{0.2533471}{\yPr-\yShift}{60}{\yPr}
+  \namedTick{0.5244005}{\yPr-\yShift}{70}{\yPr}
+  \namedTick{0.8416212}{\yPr-\yShift}{80}{\yPr}
+  \namedTick{1.281552}{\yPr-\yShift}{90}{\yPr}
+  \namedTick{1.96}{\yPr-\yShift}{97,5}{\yPr}
+  \namedTick{2.326348}{\yPr-\yShift}{99}{\yPr}  
+  \namedTick{3}{\yPr-\yShift}{99,865}{\yPr}
+
+  %IQ-Skala
+  \namedTick{-3}{\yIQ-\yShift}{55}{\yIQ}
+  \namedTick{-2}{\yIQ-\yShift}{70}{\yIQ}
+  \namedTick{-1}{\yIQ-\yShift}{85}{\yIQ}
+  \namedTick{0}{\yIQ-\yShift}{100}{\yIQ}
+  \namedTick{1}{\yIQ-\yShift}{115}{\yIQ}
+  \namedTick{2}{\yIQ-\yShift}{130}{\yIQ}
+  \namedTick{3}{\yIQ-\yShift}{145}{\yIQ}
+  %T-Skala
+  \namedTick{-3}{\yT-\yShift}{20}{\yT}
+  \namedTick{-2}{\yT-\yShift}{30}{\yT}
+  \namedTick{-1}{\yT-\yShift}{40}{\yT}
+  \namedTick{0}{\yT-\yShift}{50}{\yT}
+  \namedTick{1}{\yT-\yShift}{60}{\yT}
+  \namedTick{2}{\yT-\yShift}{70}{\yT}
+  \namedTick{3}{\yT-\yShift}{80}{\yT}
+
+  %Z-Skala
+  \namedTick{-3}{\yZ-\yShift}{70}{\yZ}
+  \namedTick{-2}{\yZ-\yShift}{80}{\yZ}
+  \namedTick{-1}{\yZ-\yShift}{90}{\yZ}
+  \namedTick{0}{\yZ-\yShift}{100}{\yZ}
+  \namedTick{1}{\yZ-\yShift}{110}{\yZ}
+  \namedTick{2}{\yZ-\yShift}{120}{\yZ}
+  \namedTick{3}{\yZ-\yShift}{130}{\yZ}
+
+  %Kompetenz-Skala
+  \myTick{-3}{\yCo}
+  \myTick{-2}{\yCo}  
+  \myTick{-1}{\yCo}
+  %\myTick{0}{\yCo}
+  \myTick{1}{\yCo}
+  \myTick{2}{\yCo}
+  \myNode{-3.5}{\yCo-\yShift}{\e\e\e\e\e}
+  \myNode{-2.5}{\yCo-\yShift}{\f\e\e\e\e}  
+  \myNode{-1.5}{\yCo-\yShift}{\f\f\e\e\e}
+  \myNode{0}{\yCo-\yShift}{\f\f\f\e\e}
+  \myNode{1.5}{\yCo-\yShift}{\f\f\f\f\e}
+  \myNode{2.5}{\yCo-\yShift}{\f\f\f\f\f}
+        
+\end{axis}
+%/node[draw] at (0,-1.5) {50%}
+\end{tikzpicture}
+\\		
+\caption{Die Standard Normalverteilung und gängige Norm-Skalen.}
+\end{figure}
+ 
+\end{document}
