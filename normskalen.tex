@@ -4,6 +4,7 @@
 \usepackage[ngerman]{babel}
 \usetikzlibrary{calc}
 \usepackage[left=2cm, right=2cm, top=4cm, bottom=4cm]{geometry}
+\usepackage{amsmath}
 
 \begin{document}
 
@@ -42,11 +43,14 @@
   grid = minor%\empty%major
   ]
   \tiny
-  \def\yPr{-0.08}  
-  \def\yIQ{-0.16}
-  \def\yT{-0.24}
-  \def\yZ{-0.32}
-  \def\yCo{-0.40}
+  \def\yCo{-0.08}  
+  \def\yPi{-0.16}
+  \def\yIQ{-0.24}
+  \def\yT{-0.32}
+  \def\yZ{-0.40}
+  \def\yPr{-0.48}
+  \def\ySt{-0.56}
+
   \def\yShift{0.03}  
   \definecolor{customcolor}{rgb}{0,0.3294118,0.4784314}
 
@@ -54,10 +58,12 @@
   \addplot [fill=customcolor!20, draw=none, domain=0:1.96] {gauss(0,1)} \closedcycle;
   \addplot [very thick,customcolor!50!black] {gauss(0,1)};
 
-   \node [above] at (axis cs:  3,0.25)
+   \node [above] at (axis cs:  -3.5,0.3)
      {\footnotesize{$\displaystyle f(z)=\frac{1}{\sigma\sqrt{2\pi}}\exp\biggl(\frac{-z^2}{2\sigma^2}\biggr)$}};
+   \node [above] at (axis cs:  4.5,0.05)
+     {\footnotesize{$\displaystyle z=\frac{x-MW(x)}{SD(x)}$}};
      
-  %dashed lines 
+  %dashed lines within normal distribution 
   \draw[dashed] (axis cs:-3,0) -- (axis cs:-3,0.05399););
   \draw[dashed] (axis cs:-2,0) -- (axis cs:-2,0.05399););
   \draw[dashed] (axis cs:-1,0) -- (axis cs:-1,0.24202););
@@ -66,7 +72,7 @@
   \draw[dashed] (axis cs:2,0) -- (axis cs:2,0.05399););
   \draw[dashed] (axis cs:3,0) -- (axis cs:3,0.00443););
 
-  %percentage notions
+  %percentage notions above x axis
   \node at (axis cs: -3.5,0.05399){0,1\%};
   \node at (axis cs: -2.5,0.05399){2,1\%};
   \node at (axis cs: -1.5,0.05399){13,6\%};
@@ -75,33 +81,70 @@
   %1.96 sigma notion
   \draw [yshift=0.5cm, latex-latex](axis cs:0,0) -- node [fill=white] {$1.96\sigma$} (axis cs:1.96,0);
 
-  \draw [->](axis cs:-4,\yPr) -- (axis cs:5,\yPr);
-  \node[fill=white] at (axis cs:  -5,\yPr-\yShift){\normalsize{Prozentrang}};
-  \draw [->](axis cs:-4,\yIQ) -- (axis cs:5,\yIQ);
-  \node[fill=white] at (axis cs: -5,\yIQ-\yShift){\normalsize{IQ-Skala}};
-  \draw [->](axis cs:-4,\yT) -- (axis cs:5,\yT);
-  \node[fill=white] at (axis cs: -5,\yT-\yShift){\normalsize{T-Skala}};
-  \draw [->](axis cs:-4,\yZ) -- (axis cs:5,\yZ);
-  \node[fill=white] at (axis cs: -5,\yZ-\yShift){\normalsize{Z-Skala}};
-  \draw [->](axis cs:-4,\yCo) -- (axis cs:5,\yCo);
+  \draw [->](axis cs:-4,\yCo) -- (axis cs:4,\yCo);
   \node[fill=white] at (axis cs: -5,\yCo-\yShift){\normalsize{Kompetenz-Skala}};
+  \draw [->](axis cs:-4,\yPi) -- (axis cs:4,\yPi);
+  \node[fill=white] at (axis cs: -5,\yPi-\yShift){\normalsize{PISA-Skala}};
+  \node[fill=white] at (axis cs: 5.2,\yPi){\normalsize{$\begin{aligned}P=100z+500\end{aligned}$}};
+  \draw [->](axis cs:-4,\yIQ) -- (axis cs:4,\yIQ);
+  \node[fill=white] at (axis cs: -5,\yIQ-\yShift){\normalsize{IQ-Skala}};
+  \node[fill=white] at (axis cs: 5.2,\yIQ){\normalsize{$\begin{aligned}IQ=15z+100\end{aligned}$}};
+  \draw [->](axis cs:-4,\yT) -- (axis cs:4,\yT);
+  \node[fill=white] at (axis cs: -5,\yT-\yShift){\normalsize{T-Skala}};
+    \node[fill=white] at (axis cs: 5.2,\yT){\normalsize{$\begin{aligned}T=10z+50\end{aligned}$}};
+  \draw [->](axis cs:-4,\yZ) -- (axis cs:4,\yZ);
+  \node[fill=white] at (axis cs: -5,\yZ-\yShift){\normalsize{Z-Skala}};
+    \node[fill=white] at (axis cs: 5.2,\yZ){\normalsize{$\begin{aligned}Z=10z+100\end{aligned}$}};
+  \draw [->](axis cs:-4,\yPr) -- (axis cs:4,\yPr);
+  \node[fill=white] at (axis cs:  -5,\yPr-\yShift){\normalsize{Prozentrang}};
+    \node[fill=white] at (axis cs: 5.2,\yPr){\normalsize{$\begin{aligned}PR=100\frac{cf(x)}{n}\end{aligned}$}};
+    \draw [->](axis cs:-4,\ySt) -- (axis cs:4,\ySt);
+  \node[fill=white] at (axis cs: -5,\ySt-\yShift){\normalsize{Stanine-Skala}};
+    \node[fill=white] at (axis cs: 5.2,\ySt){\normalsize{$\begin{aligned}S\approx2z+5\end{aligned}$}};
+
+
+
   
   %Prozentrang-Skala
-  \namedTick{-3}{\yPr-\yShift}{0,135}{\yPr}
-  \namedTick{-2.326348}{\yPr-\yShift}{1}{\yPr}
-  \namedTick{-1.96}{\yPr-\yShift}{2,5}{\yPr}
-  \namedTick{-1.281552}{\yPr-\yShift}{10}{\yPr}
-  \namedTick{-0.8416212}{\yPr-\yShift}{20}{\yPr}
+  \namedTick{-3}{\yPr-\yShift}{0,14}{\yPr}
+  \namedTick{-2}{\yPr-\yShift}{2,28}{\yPr}
+  \namedTick{-1}{\yPr-\yShift}{15,87}{\yPr}
   \namedTick{-0.5244005}{\yPr-\yShift}{30}{\yPr}
-  \namedTick{-0.2533471}{\yPr-\yShift}{40}{\yPr}
   \namedTick{0}{\yPr-\yShift}{50}{\yPr}
-  \namedTick{0.2533471}{\yPr-\yShift}{60}{\yPr}
   \namedTick{0.5244005}{\yPr-\yShift}{70}{\yPr}
-  \namedTick{0.8416212}{\yPr-\yShift}{80}{\yPr}
-  \namedTick{1.281552}{\yPr-\yShift}{90}{\yPr}
-  \namedTick{1.96}{\yPr-\yShift}{97,5}{\yPr}
-  \namedTick{2.326348}{\yPr-\yShift}{99}{\yPr}  
-  \namedTick{3}{\yPr-\yShift}{99,865}{\yPr}
+  \namedTick{1}{\yPr-\yShift}{84,13}{\yPr}
+  \namedTick{2}{\yPr-\yShift}{97,72}{\yPr}
+  \namedTick{3}{\yPr-\yShift}{99,87}{\yPr}
+  
+  %\namedTick{-1.281552}{\yPr+\yShift}{10}{\yPr}
+  %\namedTick{-0.8416212}{\yPr+\yShift}{20}{\yPr}
+  %\namedTick{-0.5244005}{\yPr+\yShift}{30}{\yPr}
+  %\namedTick{-0.2533471}{\yPr+\yShift}{40}{\yPr}
+  %\namedTick{0.2533471}{\yPr+\yShift}{60}{\yPr}
+  %\namedTick{0.5244005}{\yPr+\yShift}{70}{\yPr}
+  %\namedTick{0.8416212}{\yPr+\yShift}{80}{\yPr}
+  %s\namedTick{1.281552}{\yPr+\yShift}{90}{\yPr}
+
+  %Stanine-Skala
+  \myTick{-1.75}{\ySt}
+  \myTick{-1.25}{\ySt}
+  \myTick{-0.75}{\ySt}
+  \myTick{-0.25}{\ySt}
+  \myTick{0.25}{\ySt}
+  \myTick{0.75}{\ySt}
+  \myTick{1.25}{\ySt}
+  \myTick{1.75}{\ySt}  
+  
+  \myNode{-2}{\ySt-\yShift}{1}{\ySt}
+  \myNode{-1.5}{\ySt-\yShift}{2}{\ySt}
+  \myNode{-1}{\ySt-\yShift}{3}{\ySt}
+  \myNode{-0.5}{\ySt-\yShift}{4}{\ySt}
+  \myNode{0}{\ySt-\yShift}{5}{\ySt}
+  \myNode{0.5}{\ySt-\yShift}{6}{\ySt}
+  \myNode{1}{\ySt-\yShift}{7}{\ySt}
+  \myNode{1.5}{\ySt-\yShift}{8}{\ySt}
+  \myNode{2}{\ySt-\yShift}{9}{\ySt}
+  
 
   %IQ-Skala
   \namedTick{-3}{\yIQ-\yShift}{55}{\yIQ}
@@ -111,6 +154,7 @@
   \namedTick{1}{\yIQ-\yShift}{115}{\yIQ}
   \namedTick{2}{\yIQ-\yShift}{130}{\yIQ}
   \namedTick{3}{\yIQ-\yShift}{145}{\yIQ}
+  
   %T-Skala
   \namedTick{-3}{\yT-\yShift}{20}{\yT}
   \namedTick{-2}{\yT-\yShift}{30}{\yT}
@@ -129,6 +173,16 @@
   \namedTick{2}{\yZ-\yShift}{120}{\yZ}
   \namedTick{3}{\yZ-\yShift}{130}{\yZ}
 
+
+  %PISA-Skala
+  \namedTick{-3}{\yPi-\yShift}{200}{\yPi}
+  \namedTick{-2}{\yPi-\yShift}{300}{\yPi}
+  \namedTick{-1}{\yPi-\yShift}{400}{\yPi}
+  \namedTick{0}{\yPi-\yShift}{500}{\yPi}
+  \namedTick{1}{\yPi-\yShift}{600}{\yPi}
+  \namedTick{2}{\yPi-\yShift}{700}{\yPi}
+  \namedTick{3}{\yPi-\yShift}{800}{\yPi}
+ 
   %Kompetenz-Skala
   \myTick{-3}{\yCo}
   \myTick{-2}{\yCo}  
